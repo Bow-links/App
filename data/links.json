@@ -1,0 +1,76 @@
+{
+  "templates": {
+    "github": {
+      "base_url": "https://github.com/",
+      "icon": "/static/icons/gh.svg",
+      "name": "Github"
+    },
+    "gitlab": {
+      "base_url": "https://gitlab.com/",
+      "icon": "/static/icons/gl.svg",
+      "name": "Gitlab"
+    },
+    "youtube": {
+      "base_url": "https://youtube.com/@",
+      "icon": "/static/icons/yt.svg",
+      "name": "Youtube"
+    },
+    "linkedin": {
+      "base_url": "https://linkedin.com/in/",
+      "icon": "/static/icons/ld.svg",
+      "name": "LinkedIn"
+    },
+    "discord": {
+      "base_url": "https://discordapp.com/users/",
+      "icon": "/static/icons/dd.svg",
+      "name": "Discord",
+      "help": "Please provider user id (<a href=\"/static/dd_help.png\" target=\"blank\">help</a>)"
+    },
+    "instagram": {
+      "base_url": "https://www.instagram.com/",
+      "icon": "/static/icons/in.svg",
+      "name": "Instagram"
+    },
+    "twitter": {
+      "base_url": "https://twitter.com/",
+      "icon": "/static/icons/tw.svg",
+      "name": "Twitter"
+    },
+    "tiktok": {
+      "base_url": "https://www.tiktok.com/@",
+      "icon": "/static/icons/tk.svg",
+      "name": "Tiktok"
+    },
+    "steam": {
+      "base_url": "https://steamcommunity.com/id/",
+      "icon": "/static/icons/sm.svg",
+      "name": "Steam"
+    },
+    "telegram": {
+      "base_url": "https://t.me/",
+      "icon": "/static/icons/tl.svg",
+      "name": "Telegram"
+    },
+    "apple-music": {
+      "base_url": "https://music.apple.com/profile/",
+      "icon": "/static/icons/am.svg",
+      "name": "Apple Music"
+    },
+    "snapchat": {
+      "base_url": "https://www.snapchat.com/add/",
+      "icon": "/static/icons/sp.svg",
+      "name": "Snapchat"
+    },
+    "reddit": {
+      "base_url": "https://www.reddit.com/user/",
+      "icon": "/static/icons/rd.svg",
+      "name": "Reddit"
+    }
+  },
+  "registered": {
+
+  },
+  "pinned": {
+
+  }
+}

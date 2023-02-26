@@ -1,0 +1,450 @@
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
+
+:root {
+    --green: #01741A;
+    --rose: #DB2777;
+    --purple: #7E02FA;
+    --white: #fff;
+    --blue: #3b82f6;
+    --light-blue: #0EA5E9;
+}
+
+body, html {
+    background: url(/static/background.png);
+    background-size: cover;
+    background-position: 50%;
+    color: var(--white)
+}
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    vertical-align: baseline
+}
+
+:focus {
+    outline: 0
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block
+}
+
+body {
+    line-height: 1
+}
+
+ol, ul {
+    list-style: none
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote:after, blockquote:before, q:after, q:before {
+    content: none
+}
+
+input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration, input[type=search]::-webkit-search-results-button, input[type=search]::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+    -moz-appearance: none
+}
+
+input[type=search] {
+    -webkit-appearance: none;
+    -moz-appearance: none
+}
+
+audio, canvas, video {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    max-width: 100%
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+[hidden] {
+    display: none
+}
+
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%
+}
+
+a:focus {
+    outline: thin dotted
+}
+
+a:active, a:hover {
+    outline: 0
+}
+
+img {
+    border: 0;
+    -ms-interpolation-mode: bicubic
+}
+
+figure, form {
+    margin: 0
+}
+
+fieldset {
+    border: 1px solid silver;
+    margin: 0 2px;
+    padding: .35em .625em .75em
+}
+
+legend {
+    border: 0;
+    padding: 0;
+    white-space: normal;
+    *margin-left: -7px
+}
+
+button, input, select, textarea {
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
+    *vertical-align: middle
+}
+
+button, input {
+    line-height: normal
+}
+
+button, select {
+    text-transform: none
+}
+
+button, html input[type=button], input[type=reset], input[type=submit] {
+    -webkit-appearance: button;
+    cursor: pointer;
+    *overflow: visible
+}
+
+button[disabled], html input[disabled] {
+    cursor: default
+}
+
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
+    *height: 13px;
+    *width: 13px
+}
+
+input[type=search] {
+    -webkit-appearance: textfield;
+    box-sizing: content-box
+}
+
+input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none
+}
+
+button::-moz-focus-inner, input::-moz-focus-inner {
+    border: 0;
+    padding: 0
+}
+
+textarea {
+    overflow: auto;
+    vertical-align: top
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+button, html, input, select, textarea {
+    color: #222
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none
+}
+
+img {
+    vertical-align: middle
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0
+}
+
+textarea {
+    resize: vertical
+}
+
+.chromeframe {
+    margin: .2em 0;
+    background: #ccc;
+    color: #000;
+    padding: .2em 0
+}
+
+.btn-link {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.125rem;
+    font-weight: 500;
+    padding: 1rem 3.5rem;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+    margin-bottom: .75rem;
+    position: relative
+}
+
+.btn-link .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1rem
+}
+
+.btn-link + .btn, .btn + .btn {
+    margin-left: .5em;
+    margin-bottom: .75rem;
+}
+
+.btn-link.sm {
+    font-size: 1rem;
+    padding: 1rem 3.25rem
+}
+
+.btn-link.sm .icon {
+    width: 1.25rem;
+    height: 1.25rem
+}
+
+label {
+    color: var(--gray);
+    margin-bottom: .5em;
+    margin-top: .5em;
+}
+
+a.has-icon {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    width: max-content !important;
+    margin-bottom: .5em;
+}
+
+a.has-icon svg {
+    margin-right: .8em;
+}
+
+.credits {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.credits svg {
+    width: 16rem
+}
+
+h1:first-of-type {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.3
+}
+
+h1:first-of-type, h2 {
+    margin-bottom: .75rem;
+    text-align: center
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500
+}
+
+h2:first-of-type {
+    font-size: 1.25rem;
+    opacity: .65;
+    line-height: 1.3;
+    text-align: center;
+    margin-bottom: .75rem
+}
+
+.img {
+    display: block
+}
+
+.img:first-of-type {
+    height: 10rem;
+    width: 10rem;
+    overflow: hidden;
+    margin: auto auto .75rem;
+    position: relative;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .05), 0 10px 15px -3px rgba(0, 0, 0, .1), 0 4px 6px -2px rgba(0, 0, 0, .05);
+    border-radius: 50%
+}
+
+.img:first-of-type img {
+    width: 100%;
+    height: 100%
+}
+
+html {
+    font-size: 16px
+}
+
+#__next, body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    overflow: scroll
+}
+
+* {
+    transition: all .1s ease-in-out
+}
+
+.wrapper {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.content {
+    max-width: 30rem;
+    padding: 3rem 1.5rem;
+    width: 100%;
+}
+
+#lynk-instance p {
+    line-height: 1.3rem;
+    padding: 0 2rem
+}
+
+#lynk-instance li {
+    padding-left: 2rem;
+    position: relative
+}
+
+#lynk-instance li:before {
+    content: "•";
+    font-size: 1.25rem;
+    position: absolute
+}
+
+#lynk-instance li p {
+    padding-left: 1.25rem
+}
+
+#lynk-instance strong {
+    font-weight: 600
+}
+
+#lynk-instance a:not(.btn-link) {
+    opacity: .8;
+    color: currentColor
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: currentColor;
+    opacity: .2;
+    margin: 1.25rem 2rem 2rem;
+    display: inline-block;
+    width: calc(100% - 4rem)
+}
+
+a.icon {
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+    display: block;
+}
+
+a.icon svg {
+    width: 2em;
+    height: 2em;
+}
+
+.btn-link {
+    text-align: center;
+    background: #3b82f6;
+    color: rgba(255, 255, 255, 0.9);
+    border: none;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05)
+}
+
+.btn-link:hover {
+    background: #1469f4;
+    color: white;
+    border: none;
+    -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    -moz-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+}
+
+.btn-link:focus {
+    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    color: white
+}
+
+.btn-link:active {
+    background: #0b63f3;
+    border: none;
+    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
+}
+
+svg {
+    fill: currentColor;
+}
+
+.btn svg {
+    width: 1em;
+    height: 1em;
+}
+
+.btn-link svg {
+    color: currentColor;
+    fill: currentColor;
+}
+
+body,
+button,
+p {
+   font-family: 'Inter', sans-serif
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Inter', sans-serif
+}
