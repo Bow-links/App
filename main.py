@@ -40,7 +40,7 @@ def add_link(user, name, link, icon, tag='custom'):
         "link": link,
         "name": name,
         "icon": icon,
-        "tag": tag
+        "type": tag
     }
     links['registered'][user].append(link)
     open('data/links.json', 'w').write(json.dumps(links))
@@ -120,7 +120,7 @@ def add_a_link():
                 url = template['base_url'] + username
                 icon = template['icon']
                 name = f"{template['name']} - {username}"
-                tag = list(possibles_templates.values()).index(template)
+                tag = possibles_templates[list(possibles_templates.values()).index(template)]
                 add_link(user['username'], name, url, icon, tag=tag)
                 return redirect('/dashboard')
         name = request.form.get('name')
