@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="static/header.png" />
+<img src="static/favicon.png" />
 
 </div>
 
