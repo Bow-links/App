@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import secrets
 
 from flask import Flask, render_template, request, make_response, redirect
 
@@ -11,6 +12,26 @@ config = json.loads(open('data/config.json', 'r').read())
 
 def get_user(username):
     return json.loads(open('data/users.json').read())['users'][username]
+
+
+def add_user(username, name, image, description, password):
+    users = json.loads(open('data/users.json').read())
+
+    users['users'][username] = {
+        "username": username,
+        "name": name,
+        "image": image,
+        "description": description,
+        "background": "/static/background.png",
+        "token": secrets.token_urlsafe(32),
+        "password": str(hashlib.scrypt(password.encode(), salt=username.encode(), n=4, r=10, p=2))
+    }
+
+    open('data/users.json', 'w').write(json.dumps(users))
+
+    links = json.loads(open('data/links.json').read())
+    links['pinned'][username] = {}
+    links['registered'][username] = []
 
 
 def is_user_right(username, password):
@@ -57,11 +78,14 @@ def del_link(user, link):
 def pin_link(user, link):
     links = json.loads(open('data/links.json').read())
     old_link_object = None
+    old_pinned_object = links['pinned'][user]
     for link_object in links['registered'][user]:
         if link_object['link'] == link:
             old_link_object = link_object
             links['registered'][user].pop(links['registered'][user].index(link_object))
     links['pinned'][user] = old_link_object
+    if old_pinned_object != {}:
+        links['registered'][user].append(old_pinned_object)
     open('data/links.json', 'w').write(json.dumps(links))
 
 
