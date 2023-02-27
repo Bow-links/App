@@ -130,7 +130,7 @@ def login():
             if right:
                 pinned, links = get_links(user['username'])
                 icons, link_templates, backgrounds = get_icons_links_types_and_backgrounds()
-                return render_template('admin.html', pin=pinned, links=links, user=user['name'], description=user['description'], image=user['image'], links_types=link_templates, icons=icons, backgrounds=backgrounds, background=user['background'])
+                return render_template('admin.html', pin=pinned, links=links, user=user['name'], username=user['username'], description=user['description'], image=user['image'], links_types=link_templates, icons=icons, backgrounds=backgrounds, background=user['background'])
         return render_template('login.html')
     else:
         username = request.form.get('username')
