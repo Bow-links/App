@@ -274,6 +274,13 @@ a.has-icon svg {
     margin-right: .8em;
 }
 
+.btn.only-icon {
+    padding: .75rem;
+}
+
+.btn.only-icon .icon {
+    height: 1em;
+}
 
 .dropdown-item.background {
     display: flex;

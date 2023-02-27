@@ -26,12 +26,12 @@
       <h1>{{user}} <span class="edit-icon" data-bs-toggle="modal" data-bs-target="#customizeModel"><img src="/static/icons/edit.svg"></span></h1>
       <h2>{{description}}</h2>
       <div align="center">
-        <a class="btn btn-success" title="Open Link" href="/{{username}}" target="_blank">
+        <a class="btn btn-success only-icon" title="Open Link" href="/{{username}}" target="_blank">
           <div class="icon">
             <img src="/static/icons/lg.svg">
           </div>
         </a>
-        <a class="btn no-pd btn-primary" id="copiedBtn" title="Copy Link" onclick="navigator.clipboard.writeText(window.location.origin + '/{{username}}').then(() => { alert('Link copied !') })">
+        <a class="btn no-pd btn-primary only-icon" id="copiedBtn" title="Copy Link" onclick="navigator.clipboard.writeText(window.location.origin + '/{{username}}').then(() => { alert('Link copied !') })">
           <div class="icon">
             <img src="/static/icons/cp.svg">
           </div>
