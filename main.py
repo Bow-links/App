@@ -67,6 +67,15 @@ def add_link(user, name, link, icon, tag='custom'):
     open('data/links.json', 'w').write(json.dumps(links))
 
 
+def update_profile(user, background, image, name, description):
+    users = json.loads(open('data/users.json').read())
+    users['users'][user]['background'] = background
+    users['users'][user]['image'] = image
+    users['users'][user]['name'] = name
+    users['users'][user]['description'] = description
+    open('data/users.json', 'w').write(json.dumps(users))
+
+
 def del_link(user, link):
     links = json.loads(open('data/links.json').read())
     for link_object in links['registered'][user]:
@@ -89,11 +98,12 @@ def pin_link(user, link):
     open('data/links.json', 'w').write(json.dumps(links))
 
 
-def get_icons_and_links_types():
+def get_icons_links_types_and_backgrounds():
     templates = json.loads(open('data/links.json').read())['templates']
     links_types = [(link_type, templates[link_type]) for link_type in templates.keys()]
     icons = [(f"/static/icons/{icon}", icon) for icon in os.listdir('static/icons/')]
-    return icons, links_types
+    backgrounds = [(f"/static/backgrounds/{background}", background.split('.')[0]) for background in os.listdir('static/backgrounds/')]
+    return icons, links_types, backgrounds
 
 
 def get_link_templates():
@@ -109,7 +119,7 @@ def index():
 def page(user):
     pinned, links = get_links(user)
     user = get_user(user)
-    return render_template('index.html', pin=pinned, links=links, user=user['name'], description=user['description'], image=user['image'])
+    return render_template('index.html', pin=pinned, links=links, user=user['name'], description=user['description'], image=user['image'], background=user['background'])
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
@@ -119,8 +129,8 @@ def login():
             right, user = is_right_token(request.cookies.get('token'))
             if right:
                 pinned, links = get_links(user['username'])
-                icons, link_templates = get_icons_and_links_types()
-                return render_template('admin.html', pin=pinned, links=links, user=user['name'], description=user['description'], image=user['image'], links_types=link_templates, icons=icons)
+                icons, link_templates, backgrounds = get_icons_links_types_and_backgrounds()
+                return render_template('admin.html', pin=pinned, links=links, user=user['name'], description=user['description'], image=user['image'], links_types=link_templates, icons=icons, backgrounds=backgrounds, background=user['background'])
         return render_template('login.html')
     else:
         username = request.form.get('username')
@@ -171,6 +181,19 @@ def add_pin_link():
         link = request.args.get('link')
         if link is not None:
             pin_link(user['username'], link)
+    return redirect('/dashboard')
+
+
+@app.route('/d/update')
+def update_settings():
+    right, user = is_right_token(request.cookies.get('token'))
+    if right:
+        background = request.args.get('background')
+        profile_picture = request.args.get('pdp')
+        name = request.args.get('name')
+        description = request.args.get('desc')
+        if background is not None and profile_picture is not None and name is not None and description is not None:
+            update_profile(user['username'], background, profile_picture, name, description)
     return redirect('/dashboard')
 
 

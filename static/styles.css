@@ -24,6 +24,27 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     vertical-align: baseline
 }
 
+.edit-icon {
+    width: .8em;
+    color: var(--gray);
+    position: absolute;
+    height: 1em;
+    margin-left: .5em;
+    margin-top: -.5em;
+    transform: scale(0.9);
+    cursor: pointer;
+}
+
+.edit-icon:before {
+    content: '';
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    border: 2px solid var(--gray);
+    position: absolute;
+    transform: translate(-25%, -10%);
+}
+
 :focus {
     outline: 0
 }
@@ -220,7 +241,7 @@ textarea {
     left: 1rem
 }
 
-.btn-link + .btn, .btn + .btn {
+.btn-link + .btn, .btn + .btn:not(.no-pd) {
     margin-left: .5em;
     margin-bottom: .75rem;
 }
@@ -251,6 +272,25 @@ a.has-icon {
 
 a.has-icon svg {
     margin-right: .8em;
+}
+
+
+.dropdown-item.background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    cursor: pointer;
+}
+
+.dropdown-item.background:hover {
+    background: transparent !important;
+    transform: scale(1.05);
+}
+
+.dropdown-item.background img {
+    width: 10em;
+    margin-bottom: .2em;
 }
 
 .credits {

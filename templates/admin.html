@@ -14,7 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <title>Bow | Customization</title>
 </head>
-<body>
+<body style="background: url({{background}}); background-size: cover; background-position: 50%;">
 <div class="wrapper">
   <div class="content">
     <div id="lynk-instance">
@@ -23,8 +23,66 @@
           <img alt="logo" src="{{image}}" decoding="async" data-nimg="fill" loading="lazy" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" />
         </span>
       </p>
-      <h1>{{user}}</h1>
+      <h1>{{user}} <span class="edit-icon" data-bs-toggle="modal" data-bs-target="#customizeModel"><img src="/static/icons/edit.svg"></span></h1>
       <h2>{{description}}</h2>
+      <div class="modal fade" id="customizeModel" tabindex="-1" aria-labelledby="customize" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title title" id="customize" style="color: var(--dark)">Bow settings</h1>
+            </div>
+            <form action="/d/update" method="get">
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label class="form-label">Fullname</label>
+                  <input type="text" class="form-control" name="name" placeholder="Tryon Dev" value="{{user}}" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Description</label>
+                  <textarea class="form-control" rows="3" placeholder="My name is... I'm ... at ..." name="desc" required>{{description}}</textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Avatar</label>
+                  <input type="url" class="form-control" name="pdp" placeholder="https://gravatar.com/" value="{{image}}" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Background</label>
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Background - <span id="background-label">{{background}}</span><input style="display: none" id="background-input" name="background" required>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <div class="container dropdown-item">
+                        <div class="row row-cols-md-2">
+                          {% for i in range(0, (((backgrounds|length)/2)|int)) %}
+                          <div class="row">
+                            <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[i * 2][0]}}', '{{backgrounds[i * 2][1]}}')"><img src="{{backgrounds[i * 2][0]}}">{{backgrounds[i * 2][1]}}</a>
+                          </div>
+                          <div class="row">
+                            <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[i * 2 + 1][0]}}', '{{backgrounds[i * 2 + 1][1]}}')"><img src="{{backgrounds[i * 2 + 1][0]}}">{{backgrounds[i * 2 + 1][1]}}</a>
+                          </div>
+                          {% endfor %}
+                        </div>
+                        <div class="row row-cols-md-2">
+                          {% for i in range(0, (((backgrounds|length)%2)|int)) %}
+                          <div class="row">
+                            <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[-i][0]}}', '{{backgrounds[-i][1]}}')"><img src="{{backgrounds[-i][0]}}">{{backgrounds[-i][1]}}</a>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-success no-pd">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
       <hr />
       <a href="{{pin.link}}" rel="noopener noreferrer" target="_blank" class="btn-link">
         <div class="icon">
@@ -150,6 +208,11 @@
   function selectIcon(icon, label) {
       document.getElementById('icon-label').innerText = label
       document.getElementById('icon-input').value = icon
+  }
+
+  function selectBackground(icon, label) {
+      document.getElementById('background-label').innerText = label
+      document.getElementById('background-input').value = icon
   }
 
   function selectLinkType(template, label) {
