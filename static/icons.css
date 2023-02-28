@@ -1,0 +1,156 @@
+/* This file contains all rules to have custom colors for different links */
+/* Changing variable:
+ --background: background color,
+ --color: text color,
+ --s: box-shadow,
+
+ --background-a: active background,
+ --color-a: active color
+ --active-s: active box-shadow,
+
+ --focus-s: focus box-shadow,
+
+ */
+
+.btn-link {
+    --focus-s: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --active-s: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --s: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-link .icon, .btn-link .icon svg {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.btn-link, .btn-link .icon, .btn-link .icon svg {
+    background: var(--background);
+    color: var(--color);
+    -webkit-box-shadow: var(--s);
+    -moz-box-shadow: var(--s);
+    box-shadow: var(--s);
+}
+
+.btn-link:hover, .btn-link:hover .icon, .btn-link:hover .icon svg {
+    background: var(--background-a);
+    color: var(--color-a);
+    border: none;
+    -webkit-box-shadow: var(--active-s);
+    -moz-box-shadow: var(--active-s);
+    box-shadow: var(--active-s)
+}
+
+.btn-link:focus, .btn-link:active {
+    -webkit-box-shadow: var(--focus-s);
+    -moz-box-shadow: var(--focus-s);
+    box-shadow: var(--focus-s);
+    color: var(--color-a)
+}
+
+/* Services */
+
+.btn-link.github {
+    --color: #c9d1d9;
+    --background: #0d1117;
+
+    --color-a: #f0f6fc;
+    --background-a: #21262d;
+}
+
+.btn-link.gitlab {
+    --color: #ececef;
+    --background: #fc6d26;
+
+    --color-a: #fc6d26;
+    --background-a: #ececef;
+}
+
+.btn-link.youtube {
+    --color: #fff;
+    --background: #ff4e45;
+
+    --color-a: #ff4e45;
+    --background-a: #fff;
+}
+
+.btn-link.discord, .btn-link.discord-server {
+    --color: #e9eafe;
+    --background: #5865f2;
+
+    --color-a: #fff;
+    --background-a: #4752c4;
+}
+
+.btn-link.telegram {
+    --color: #2481cc;
+    --background: #fff;
+
+    --color-a: #1a8ad5;
+    --background-a: rgba(255, 255, 255, .84);
+}
+
+.btn-link.reddit {
+    --color: #d93a00;
+    --background: #f8f8f8;
+
+    --color-a: #f8f8f8;
+    --background-a: #d93a00;
+}
+
+.btn-link.instagram {
+    --color: #DB2777;
+    --background: #fff;
+
+    --color-a: #fff;
+    --background-a: #DB2777;
+}
+
+.btn-link.snapchat {
+    --color: #000;
+    --background: #FFFC00;
+
+    --color-a: #FFFC00;
+    --background-a: #000;
+}
+
+.btn-link.apple-music {
+    --color: #fff;
+    --background: #fc3c44;
+
+    --color-a: #c2cad7;
+    --background-a: #f94c57;
+}
+
+.btn-link.linkedin {
+    --color: #fff;
+    --background: #00a0dc;
+
+    --color-a: #fff;
+    --background-a: #007bb5;
+}
+
+.btn-link.steam {
+    --color: #c7d5e0;
+    --background: #2a475e;
+
+    --color-a: #c7d5e0;
+    --background-a: #171a21;
+}
+
+.btn-link.tiktok {
+    --color: #fff;
+    --background: #222;
+
+    --color-a: #25F4EE;
+    --background-a: #222;
+}
+
+.btn-link.twitter {
+    --color: #fff;
+    --background: #55acee;
+
+    --color-a: #e1e8ed;
+    --background-a: #3f82b5;
+}

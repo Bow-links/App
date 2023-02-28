@@ -24,7 +24,13 @@
       "base_url": "https://discordapp.com/users/",
       "icon": "/static/icons/dd.svg",
       "name": "Discord",
-      "help": "Please provider user id (<a href=\"/static/dd_help.png\" target=\"blank\">help</a>)"
+      "help": "Please provide user id (<a href=\"/static/dd_help.png\" target=\"blank\">help</a>)"
+    },
+    "discord-server": {
+      "base_url": "",
+      "icon": "/static/icons/dd.svg",
+      "name": "Discord Server",
+      "help": "Please enter your discord server url or invite code (eg https://discord.gg/YCZUzQ2R, YCZUzQ2R)"
     },
     "instagram": {
       "base_url": "https://www.instagram.com/",
@@ -68,9 +74,7 @@
     }
   },
   "registered": {
-
   },
   "pinned": {
-
   }
 }
