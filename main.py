@@ -3,6 +3,7 @@ import json
 import os
 import secrets
 
+import requests
 from flask import Flask, render_template, request, make_response, redirect
 
 
@@ -57,6 +58,14 @@ def get_links(user):
 
 def add_link(user, name, link, icon, tag='custom'):
     links = json.loads(open('data/links.json').read())
+    if tag == 'discord':
+        name = 'Discord - Account'
+    if tag == 'discord-server':
+        code = link.split('/')[-1]
+        guild = requests.get(f'https://discord.com/api/invites/{code}').json()
+        guild_name = guild['guild']['name']
+        name = f'Discord - {guild_name}'
+        link = f'https://dicord.gg/{code}'
     link = {
         "link": link,
         "name": name,
@@ -154,7 +163,7 @@ def add_a_link():
                 url = template['base_url'] + username
                 icon = template['icon']
                 name = f"{template['name']} - {username}"
-                tag = possibles_templates[list(possibles_templates.values()).index(template)]
+                tag = list(possibles_templates.keys())[list(possibles_templates.values()).index(template)]
                 add_link(user['username'], name, url, icon, tag=tag)
                 return redirect('/dashboard')
         name = request.form.get('name')
