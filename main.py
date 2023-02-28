@@ -59,12 +59,12 @@ def get_links(user):
 def add_link(user, name, link, icon, tag='custom'):
     links = json.loads(open('data/links.json').read())
     if tag == 'discord':
-        name = 'Discord - Account'
+        name = 'Discord — Account'
     if tag == 'discord-server':
         code = link.split('/')[-1]
         guild = requests.get(f'https://discord.com/api/invites/{code}').json()
         guild_name = guild['guild']['name']
-        name = f'Discord - {guild_name}'
+        name = f'Discord — {guild_name}'
         link = f'https://dicord.gg/{code}'
     link = {
         "link": link,
@@ -124,7 +124,7 @@ def index():
     return redirect(config['default'])
 
 
-@app.route('/<user>')
+@app.route('/@<user>')
 def page(user):
     pinned, links = get_links(user)
     user = get_user(user)
@@ -162,7 +162,7 @@ def add_a_link():
                 username = request.form.get('username')
                 url = template['base_url'] + username
                 icon = template['icon']
-                name = f"{template['name']} - {username}"
+                name = f"{template['name']} — {username}"
                 tag = list(possibles_templates.keys())[list(possibles_templates.values()).index(template)]
                 add_link(user['username'], name, url, icon, tag=tag)
                 return redirect('/dashboard')
