@@ -1,4 +1,5 @@
 @import "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap";
+@import "/static/icons.css";
 
 :root {
     --green: #01741A;
@@ -27,12 +28,13 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 .edit-icon {
     width: .8em;
     color: var(--gray);
-    position: absolute;
+    position: relative;
     height: 1em;
-    margin-left: .5em;
-    margin-top: -.5em;
+    left: 12em;
+    top: -1.75em;
     transform: scale(0.9);
     cursor: pointer;
+    display: block;
 }
 
 .edit-icon:before {
@@ -229,7 +231,11 @@ textarea {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     text-decoration: none;
     margin-bottom: .75rem;
-    position: relative
+    position: relative;
+}
+
+.btn-link:hover {
+    text-decoration: none;
 }
 
 .btn-link .icon {
@@ -435,37 +441,16 @@ a.icon svg {
 
 .btn-link {
     text-align: center;
-    background: #3b82f6;
-    color: rgba(255, 255, 255, 0.9);
+    --background: #3b82f6;
+    --background-a: #1469f4;
+    --color: rgba(255, 255, 255, 0.9);
+    --color-a: white;
+    --focus-s: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --active-s: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --s: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     border: none;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05)
 }
 
-.btn-link:hover {
-    background: #1469f4;
-    color: white;
-    border: none;
-    -webkit-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    -moz-box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
-}
-
-.btn-link:focus {
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    color: white
-}
-
-.btn-link:active {
-    background: #0b63f3;
-    border: none;
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
-}
 
 svg {
     fill: currentColor;
