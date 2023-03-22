@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+import re
 import secrets
 
 import requests
@@ -13,6 +14,12 @@ config = json.loads(open('data/config.json', 'r').read())
 
 def get_user(username):
     return json.loads(open('data/users.json').read())['users'][username]
+
+
+def is_username_used(username):
+    users = json.loads(open('data/users.json').read())
+    usernames = list(users['users'].keys())
+    return username in usernames
 
 
 def add_user(username, name, image, description, password):
@@ -33,6 +40,8 @@ def add_user(username, name, image, description, password):
     links = json.loads(open('data/links.json').read())
     links['pinned'][username] = {}
     links['registered'][username] = []
+
+    open('data/links.json', 'w').write(json.dumps(links))
 
 
 def is_user_right(username, password):
@@ -122,6 +131,24 @@ def get_link_templates():
 @app.route('/')
 def index():
     return redirect(config['default'])
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        form = request.form
+        username = form.get('username')
+        fullname = form.get('fullname')
+        password = form.get('password')
+        username = re.sub("[^a-z0-9_.]", "", username)
+        if is_username_used(username):
+            return render_template('register.html', message='Username is already used by someone !')
+        add_user(username, fullname, '/static/default-avatar.png', '', password)
+        _, user = is_user_right(username, password)
+        response = make_response(redirect('/dashboard'))
+        response.set_cookie('token', user['token'])
+        return response
+    return render_template('register.html')
 
 
 @app.route('/@<user>')

@@ -8,6 +8,7 @@
     --white: #fff;
     --blue: #3b82f6;
     --light-blue: #0EA5E9;
+    --grey: #A8A8A8;
 }
 
 body, html {
@@ -23,6 +24,26 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
     border: 0;
     font: inherit;
     vertical-align: baseline
+}
+
+label {
+    color: var(--grey) !important;
+}
+
+form .btn:not(.btn-danger, .btn-link, .btn-success, .btn-secondary) {
+    width: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    background: var(--blue);
+    color: var(--white);
+}
+
+.btn .icon {
+    height: max-content;
+    line-height: 1 !important;
+    margin-left: .25em;
 }
 
 .edit-icon {
