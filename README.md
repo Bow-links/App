@@ -17,9 +17,34 @@ Example user page
 
 ### Using docker
 ```shell
+git clone https://github.com/tryon-dev/Bow
+```
+
+[//]: # (https://github.com/bow-links/Bow //TODO move git)
+
+
+```shell
 docker-compose up -d
 ```
 Now, go to http://localhost:5000
+
+### Docker without cloning git
+
+Copy Dockerfile content
+```Dockerfile
+FROM python:3-bullseye
+
+RUN apt install git
+RUN echo "cd / && git clone https://\$USER:\$TOKEN@github.com/tryon-dev/Bow app && cd app && pip install pip --upgrade && pip install -r requirements.txt && python main.py" > run.sh
+EXPOSE 5000:5000
+WORKDIR /
+CMD ["bash", "run.sh"]
+```
+
+Build and run...
+```shell
+docker build -f Dockerfile -t bow . && docker run -d bow
+```
 
 ## Contribute
 
