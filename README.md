@@ -9,9 +9,9 @@ Bow helps you to introduces you in 2 lines and group you social network links in
 
 ## Screenshots
 Register page
-<img src="/home/armand/IdeaProjects/tryon-links/.github/screenshots/Screenshot 2023-03-22 at 19-28-49 Bow Register.png">
+<img src="/.github/screenshots/Screenshot 2023-03-22 at 19-28-49 Bow Register.png">
 Example user page
-<img src="/home/armand/IdeaProjects/tryon-links/.github/screenshots/Screenshot 2023-03-22 at 19-29-26 John Doe Bow.png"/>
+<img src="/.github/screenshots/Screenshot 2023-03-22 at 19-29-26 John Doe Bow.png"/>
 
 ## Self-hosting
 
