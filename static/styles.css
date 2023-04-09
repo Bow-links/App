@@ -5,7 +5,7 @@
     --green: #01741A;
     --rose: #DB2777;
     --purple: #5B06DB;
-    --purple-alt: #010F8E;
+    --purple-alt: #300ab6;
     --purple-gradient: linear-gradient(240.64deg, #7E02FA 0%, #010F8E 100%);
     --white: #fff;
     --black: #222;
@@ -45,7 +45,7 @@ form .btn:not(.btn-danger, .btn-link, .btn-success, .btn-secondary) {
     justify-content: center;
     align-items: center;
     flex-direction: row-reverse;
-    background: var(--purple);
+    background: var(--purple-alt);
     color: var(--white);
 }
 
