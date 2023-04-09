@@ -9,7 +9,7 @@ Bow helps you to introduces you in 2 lines and group you social network links in
 
 ## Screenshots
 Dashboard
-<img src="/.github/screenshots/dashboard.png">
+<img src="/.github/screenshots/screen_dashboard.png">
 <br>
 <br>
 Example user page
