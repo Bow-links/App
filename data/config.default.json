@@ -1,7 +1,0 @@
-{
-  "default": "/register",
-  "url": "https://my-bow.com",
-  "database": {
-    "url": "mongodb+srv://user:password@my-mongo.domain.com"
-  }
-}
