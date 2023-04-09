@@ -9,6 +9,7 @@
     --purple-gradient: linear-gradient(240.64deg, #7E02FA 0%, #010F8E 100%);
     --white: #fff;
     --black: #222;
+    --black-alt: #161616;
     --blue: #3B82F6;
     --light-blue: #0EA5E9;
     --grey: #A8A8A8;
@@ -52,12 +53,15 @@ form .btn:not(.btn-danger, .btn-link, .btn-success, .btn-secondary) {
 .btn .icon {
     height: max-content;
     line-height: 1 !important;
+}
+
+.btn:not(.only-icon) .icon {
     margin-left: .5em;
 }
 
 .edit-icon {
     width: .8em;
-    color: var(--gray);
+    color: var(--grey);
     position: relative;
     height: 1em;
     left: 12em;
@@ -418,31 +422,31 @@ body, html {
     width: 100%;
 }
 
-#lynk-instance p {
+#bow-instance p {
     line-height: 1.3rem;
     padding: 0 2rem
 }
 
-#lynk-instance li {
+#bow-instance li {
     padding-left: 2rem;
     position: relative
 }
 
-#lynk-instance li:before {
+#bow-instance li:before {
     content: "•";
     font-size: 1.25rem;
     position: absolute
 }
 
-#lynk-instance li p {
+#bow-instance li p {
     padding-left: 1.25rem
 }
 
-#lynk-instance strong {
+#bow-instance strong {
     font-weight: 600
 }
 
-#lynk-instance a:not(.btn-link) {
+#bow-instance a:not(.btn-link) {
     opacity: .8;
     color: currentColor
 }
