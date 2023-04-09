@@ -3,70 +3,62 @@ import json
 import os
 import re
 import secrets
-
+import pymongo
 import requests
 from flask import Flask, render_template, request, make_response, redirect
-
+from secrets import compare_digest
 
 app = Flask('Bow Links')
 config = json.loads(open('data/config.json', 'r').read())
+database = pymongo.MongoClient(config['database']['url']).Bow
 
 
 def get_user(username):
-    return json.loads(open('data/users.json').read())['users'][username]
+    return database.users.find_one({'username': username})
 
 
 def is_username_used(username):
-    users = json.loads(open('data/users.json').read())
-    usernames = list(users['users'].keys())
-    return username in usernames
+    return database.users.find_one({'username': username}) is not None
 
 
-def add_user(username, name, image, description, password):
-    users = json.loads(open('data/users.json').read())
-
-    users['users'][username] = {
+def add_user(username, name, email, image, description, password):
+    user = {
         "username": username,
+        "email": email,
         "name": name,
         "image": image,
         "description": description,
         "background": "/static/background.png",
         "token": secrets.token_urlsafe(32),
-        "password": str(hashlib.scrypt(password.encode(), salt=username.encode(), n=4, r=10, p=2))
+        "password": str(hashlib.scrypt(password.encode(), salt=username.encode(), n=4, r=10, p=2)),
+        "premium": False
     }
+    database.users.insert_one(user)
 
-    open('data/users.json', 'w').write(json.dumps(users))
-
-    links = json.loads(open('data/links.json').read())
-    links['pinned'][username] = {}
-    links['registered'][username] = []
-
-    open('data/links.json', 'w').write(json.dumps(links))
+    add_link(username, 'Bow Profile', f"{config['url']}/@{username}", "/static/icons/bow.svg", 'bow')
+    add_link(username, 'Bow Website', f"{config['url']}", "/static/icons/bow.svg", 'bow')
+    pin_link(username, f"https://{config['url']}/{username}")
 
 
 def is_user_right(username, password):
-    users = json.loads(open('data/users.json').read())
-    if username in users['users'].keys():
-        if users['users'][username]['password'] == str(hashlib.scrypt(password.encode(), salt=username.encode(), n=4, r=10, p=2)):
-            return True, users['users'][username]
+    user = database.users.find_one({'username': username})
+    if user['password'] == str(hashlib.scrypt(password.encode(), salt=username.encode(), n=4, r=10, p=2)):
+        return True, user
     return False, {}
 
 
 def is_right_token(token):
-    users = json.loads(open('data/users.json').read())['users']
-    for user in users.keys():
-        if users[user]['token'] == token:
-            return True, users[user]
+    user = database.users.find_one({'token': token})
+    if compare_digest(user['token'], token):
+        return True, user
     return False, {}
 
 
-def get_links(user):
-    links = json.loads(open('data/links.json').read())
-    return links['pinned'][user], links['registered'][user]
+def get_links(username):
+    return database.pins.find_one({'username': username}), database.links.find({'username': username})
 
 
-def add_link(user, name, link, icon, tag='custom'):
-    links = json.loads(open('data/links.json').read())
+def add_link(username, name, link, icon, tag='custom'):
     if tag == 'discord':
         name = 'Discord — Account'
     if tag == 'discord-server':
@@ -79,41 +71,36 @@ def add_link(user, name, link, icon, tag='custom'):
         "link": link,
         "name": name,
         "icon": icon,
-        "type": tag
+        "type": tag,
+        'username': username
     }
-    links['registered'][user].append(link)
-    open('data/links.json', 'w').write(json.dumps(links))
+    database.links.insert_one(link)
 
 
-def update_profile(user, background, image, name, description):
-    users = json.loads(open('data/users.json').read())
-    users['users'][user]['background'] = background
-    users['users'][user]['image'] = image
-    users['users'][user]['name'] = name
-    users['users'][user]['description'] = description
-    open('data/users.json', 'w').write(json.dumps(users))
+def update_profile(username, background, image, name, description):
+    user = {
+        "name": name,
+        "image": image,
+        "description": description,
+        "background": background
+    }
+    database.users.update_one({'username': username}, {'$set': user})
 
 
-def del_link(user, link):
-    links = json.loads(open('data/links.json').read())
-    for link_object in links['registered'][user]:
-        if link_object['link'] == link:
-            links['registered'][user].pop(links['registered'][user].index(link_object))
-    open('data/links.json', 'w').write(json.dumps(links))
+def del_link(username, link):
+    database.links.delete_one({'link': link, 'username': username})
 
 
-def pin_link(user, link):
-    links = json.loads(open('data/links.json').read())
-    old_link_object = None
-    old_pinned_object = links['pinned'][user]
-    for link_object in links['registered'][user]:
-        if link_object['link'] == link:
-            old_link_object = link_object
-            links['registered'][user].pop(links['registered'][user].index(link_object))
-    links['pinned'][user] = old_link_object
-    if old_pinned_object != {}:
-        links['registered'][user].append(old_pinned_object)
-    open('data/links.json', 'w').write(json.dumps(links))
+def pin_link(username, link):
+    old_pinned_object = database.pins.find_one({'username': username})
+    link_object = database.links.find_one({'link': link, 'username': username})
+
+    database.links.delete_one(link_object)
+    database.pins.delete_one({'username': username})
+
+    database.pins.insert_one(link_object)
+    if old_pinned_object not in [{}, None]:
+        database.links.insert_one(old_pinned_object)
 
 
 def get_icons_links_types_and_backgrounds():
@@ -138,12 +125,12 @@ def register():
     if request.method == 'POST':
         form = request.form
         username = form.get('username')
-        fullname = form.get('fullname')
+        email = form.get('email')
         password = form.get('password')
         username = re.sub("[^a-z0-9_.]", "", username)
         if is_username_used(username):
             return render_template('register.html', message='Username is already used by someone !')
-        add_user(username, fullname, '/static/default-avatar.png', '', password)
+        add_user(username, username, email, '/static/default-avatar.png', '', password)
         _, user = is_user_right(username, password)
         response = make_response(redirect('/dashboard'))
         response.set_cookie('token', user['token'])
@@ -155,7 +142,7 @@ def register():
 def page(user):
     pinned, links = get_links(user)
     user = get_user(user)
-    return render_template('index.html', pin=pinned, links=links, user=user['name'], description=user['description'], image=user['image'], background=user['background'])
+    return render_template('index.html', pin=pinned, links=list(links), user=user['name'], description=user['description'], image=user['image'], background=user['background'])
 
 
 @app.route('/dashboard', methods=['GET', 'POST'])
@@ -166,7 +153,7 @@ def login():
             if right:
                 pinned, links = get_links(user['username'])
                 icons, link_templates, backgrounds = get_icons_links_types_and_backgrounds()
-                return render_template('admin.html', pin=pinned, links=links, user=user['name'], username=user['username'], description=user['description'], image=user['image'], links_types=link_templates, icons=icons, backgrounds=backgrounds, background=user['background'])
+                return render_template('dashboard.html', pin=pinned, links=links, user=user['name'], username=user['username'], description=user['description'], image=user['image'], links_types=link_templates, icons=icons, backgrounds=backgrounds, background=user['background'])
         return render_template('login.html')
     else:
         username = request.form.get('username')
