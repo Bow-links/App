@@ -23,7 +23,7 @@
           <img alt="logo" src="{{image}}" decoding="async" data-nimg="fill" loading="lazy" style="position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent" />
         </span>
       </p>
-      <h1>{{user}} <span class="edit-icon" data-bs-toggle="modal" data-bs-target="#customizeModel"><img src="/static/icons/edit.svg"></span></h1>
+      <h1>{{user}}</h1>
       <h2>{{description}}</h2>
       <div align="center">
         <a class="btn btn-success only-icon" title="Open Link" href="/@{{username}}" target="_blank">
@@ -37,65 +37,187 @@
           </div>
         </a>
       </div>
-      <div class="modal fade" id="customizeModel" tabindex="-1" aria-labelledby="customize" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title title" id="customize" style="color: var(--dark)">Bow settings</h1>
-            </div>
-            <form action="/d/update" method="get">
-              <div class="modal-body">
-                <div class="mb-3">
-                  <label class="form-label">Fullname</label>
-                  <input type="text" class="form-control" name="name" placeholder="Tryon Dev" value="{{user}}" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Username (Soon)</label>
-                  <input disabled type="text" class="form-control" name="username" pattern="^[a-z0-9_.]+$" placeholder="tryon" value="{{username}}" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Description</label>
-                  <textarea class="form-control" rows="3" placeholder="My name is... I'm ... at ..." name="desc" required>{{description}}</textarea>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Avatar</label>
-                  <input type="url" class="form-control" name="pdp" placeholder="https://gravatar.com/" value="{{image}}" required>
-                </div>
-                <div class="mb-3">
-                  <label class="form-label">Background</label>
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Background - <span id="background-label">{{background.split('/')[-1].replace('.png', '')}}</span><input style="display: none" id="background-input" name="background" required value="{{background}}">
-                    </button>
-                    <ul class="dropdown-menu">
-                      <div class="container dropdown-item">
-                        <div class="row row-cols-md-2">
-                          {% for i in range(0, (((backgrounds|length)/2)|int)) %}
-                          <div class="row">
-                            <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[i * 2][0]}}', '{{backgrounds[i * 2][1]}}')"><img src="{{backgrounds[i * 2][0]}}">{{backgrounds[i * 2][1]}}</a>
+      <div>
+        <span class="edit-icon" data-bs-toggle="modal" data-bs-target="#customizeModal"><img src="/static/icons/edit.svg"></span>
+        <div class="modal fade" id="customizeModal" tabindex="-1" aria-labelledby="customize" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title title" id="customize" style="color: var(--dark)">Edit profile</h1>
+              </div>
+              <form class="little-margin" action="/d/update" method="get">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label class="form-label">Fullname</label>
+                    <input type="text" class="form-control" name="name" placeholder="Tryon Dev" value="{{user}}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Username (Soon)</label>
+                    <input disabled type="text" class="form-control" name="username" pattern="^[a-z0-9_.]+$" placeholder="tryon" value="{{username}}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" rows="3" placeholder="My name is... I'm ... at ..." name="desc" required>{{description}}</textarea>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Avatar</label>
+                    <input type="url" class="form-control" name="pdp" placeholder="https://gravatar.com/" value="{{image}}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Background</label>
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle no-margin" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Background - <span id="background-label">{{background.split('/')[-1].replace('.png', '')}}</span><input style="display: none" id="background-input" name="background" required value="{{background}}">
+                      </button>
+                      <ul class="dropdown-menu">
+                        <div class="container dropdown-item">
+                          <div class="row row-cols-md-2" style="width: 22.5em;">
+                            {% for i in range(0, (((backgrounds|length)/2)|int)) %}
+                            <div class="row">
+                              <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[i * 2][0]}}', '{{backgrounds[i * 2][1]}}')"><img src="{{backgrounds[i * 2][0]}}">{{backgrounds[i * 2][1]}}</a>
+                            </div>
+                            <div class="row">
+                              <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[i * 2 + 1][0]}}', '{{backgrounds[i * 2 + 1][1]}}')"><img src="{{backgrounds[i * 2 + 1][0]}}">{{backgrounds[i * 2 + 1][1]}}</a>
+                            </div>
+                            {% endfor %}
                           </div>
-                          <div class="row">
-                            <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[i * 2 + 1][0]}}', '{{backgrounds[i * 2 + 1][1]}}')"><img src="{{backgrounds[i * 2 + 1][0]}}">{{backgrounds[i * 2 + 1][1]}}</a>
+                          <div class="row row-cols-md-2" style="width: 22.5em;">
+                            {% for i in range(0, (((backgrounds|length)%2)|int)) %}
+                            <div class="row">
+                              <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[-i][0]}}', '{{backgrounds[-i][1]}}')"><img src="{{backgrounds[-i][0]}}">{{backgrounds[-i][1]}}</a>
+                            </div>
+                            {% endfor %}
                           </div>
-                          {% endfor %}
                         </div>
-                        <div class="row row-cols-md-2">
-                          {% for i in range(0, (((backgrounds|length)%2)|int)) %}
-                          <div class="row">
-                            <a class="dropdown-item background" onclick="selectBackground('{{backgrounds[-i][0]}}', '{{backgrounds[-i][1]}}')"><img src="{{backgrounds[-i][0]}}">{{backgrounds[-i][1]}}</a>
-                          </div>
-                          {% endfor %}
-                        </div>
-                      </div>
-                    </ul>
+                      </ul>
+                    </div>
                   </div>
                 </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger no-margin" data-bs-dismiss="modal">
+                    Close
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+                      <path d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"/>
+                    </svg>
+                  </button>
+                  <button type="submit" class="btn btn-success no-pd no-margin">
+                    Save changes
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                      <path d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"/>
+                    </svg>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <span class="add-icon" data-bs-toggle="modal" data-bs-target="#addLinkModal"><img src="/static/icons/add.svg"></span>
+        <div class="modal fade" id="addLinkModal" tabindex="-1" aria-labelledby="customize" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style="border-bottom: none">
+                <h1 class="modal-title title" style="color: var(--dark)">Add link</h1>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success no-pd">Save changes</button>
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active" id="add-link" href="#" data-bs-toggle="tab" type="button" data-bs-target="#addTemplateLink" aria-selected="true" role="tab" aria-controls="addTemplateLink">Social link</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="add-custom-link" href="#" data-bs-toggle="tab" type="button" data-bs-target="#addCustomLink" aria-selected="false" role="tab" aria-controls="addCustomLink">Custom link</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div id="addTemplateLink" class="tab-pane fade show active" role="tabpanel" aria-labelledby="add-link" tabindex="0">
+                  <form class="little-margin" action="/d/add?template=true" method="post">
+                    <div class="form-group">
+                      <label>Service</label>
+                      <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle no-margin" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Service - <span id="service-label"></span><input style="display: none" id="service-input" name="service" required>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <div class="container">
+                            {% for link in links_types %}
+                            <div class="row">
+                              <a class="dropdown-item has-icon icon" onclick="selectLinkType('{{link[0]}}', '{{link[1].name}}', '{{link[1].help}}')"><img src="{{link[1].icon}}">{{link[1].name}}</a>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Username</label>
+                      <input class="form-control" name="username" placeholder="tryon" required>
+                      <p class="mt-1" style="color: var(--dark)" id="service-help"></p>
+                      <p style="color: var(--dark)" class="mt-1">Your username for the platform specified.</p>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success mb-3 no-margin">
+                        Add
+                        <svg style="height: 1em" width="79" height="79" viewBox="0 0 79 79" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M31.9342 0.396752V78.5113H47.4763V0.396752H31.9342ZM0.676884 31.7119V47.2539H78.7914V31.7119H0.676884Z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </form>
+                </div>
+                <div id="addCustomLink" class="tab-pane fade" role="tabpanel" aria-labelledby="add-custom-link" tabindex="0">
+                  <form class="little-margin" action="/d/add" method="post">
+                    <div class="row g-3">
+                      <div class="col-auto">
+                        <label>Icon</label>
+                        <div class="dropdown">
+                          <button class="btn btn-secondary dropdown-toggle icon-picker" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Icon - <span id="icon-label"></span><input style="display: none" id="icon-input" name="icon" required>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <div class="container dropdown-item">
+                              {% for i in range(0, ((icons|length)/3)|int) %}
+                              <div class="row row-cols-md-3">
+                                <div class="col col-md-3">
+                                  <a class="icon" onclick="selectIcon('{{icons[i * 3][0]}}', '{{icons[i * 3][1]}}')"><img src="{{icons[i * 3][0]}}"></a>
+                                </div>
+                                <div class="col col-md-3">
+                                  <a class="icon" onclick="selectIcon('{{icons[i * 3 + 1][0]}}', '{{icons[i * 3 + 1][1]}}')"><img src="{{icons[i * 3 + 1][0]}}"></a>
+                                </div>
+                                <div class="col col-md-3">
+                                  <a class="icon" onclick="selectIcon('{{icons[i * 3 + 2][0]}}', '{{icons[i * 3 + 2][1]}}')"><img src="{{icons[i * 3 + 2][0]}}"></a>
+                                </div>
+                              </div>
+                              {% endfor %}
+                              <div class="row row-cols-md-3">
+                                {% for i in range(0, ((icons|length)%3)) %}
+                                <div class="col col-md-3">
+                                  <a class="icon" onclick="selectIcon('{{icons[-i][0]}}', '{{icons[-i][1]}}')"><img src="{{icons[-i][0]}}"></a>
+                                </div>
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <label>Name</label>
+                        <input type="text" class="form-control" placeholder="My link" name="name" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Link</label>
+                      <input type="url" class="form-control" name="link" placeholder="https://my-link.com" required>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success mb-3 no-margin">
+                        Add
+                        <svg style="height: 1em" width="79" height="79" viewBox="0 0 79 79" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M31.9342 0.396752V78.5113H47.4763V0.396752H31.9342ZM0.676884 31.7119V47.2539H78.7914V31.7119H0.676884Z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -106,123 +228,21 @@
         </div>
         <span>{{pin.name}}</span>
       </a>
-      {% for link in links %}
-        {% if link.type == 'custom' %}
-          <div class="d-flex justify-content-between">
-        <a href="{{link.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{link.type}}">
-          <div class="icon">
-            <img src="{{link.icon}}">
-          </div>
-          <span>{{link.name}}</span>
-        </a>
-        <button class="btn btn-success" onclick="location.href = '/d/pin?link={{link.link}}'" title="Pin"><img src="/static/icons/pin.svg"></button>
-        <button class="btn btn-danger" onclick="location.href = '/d/del?link={{link.link}}'" title="Delete"><img src="/static/icons/del.svg"></button>
-      </div>
-        {% endif %}
-      {% endfor %}
       <hr />
       <h2>Socials</h2>
       {% for link in links %}
-        {% if link.type != 'custom' %}
-          <div class="d-flex justify-content-between">
-        <a href="{{link.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{link.type}}">
-          <div class="icon">
-            <img src="{{link.icon}}">
-          </div>
-          <span>{{link.name}}</span>
-        </a>
-        <button class="btn btn-success" onclick="location.href = '/d/pin?link={{link.link}}'" title="Pin"><img src="/static/icons/pin.svg"></button>
-        <button class="btn btn-danger" onclick="location.href = '/d/del?link={{link.link}}'" title="Delete"><img src="/static/icons/del.svg"></button>
-      </div>
-        {% endif %}
+        <div class="d-flex justify-content-between">
+          <a href="{{link.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{link.type}}">
+            <div class="icon">
+              <img src="{{link.icon}}">
+            </div>
+            <span>{{link.name}}</span>
+          </a>
+          <button class="btn btn-success" onclick="location.href = '/d/pin?link={{link.link}}'" title="Pin"><img src="/static/icons/pin.svg"></button>
+          <button class="btn btn-danger" onclick="location.href = '/d/del?link={{link.link}}'" title="Delete"><img src="/static/icons/del.svg"></button>
+        </div>
       {% endfor %}
       <hr/>
-      <div class="card mt-3">
-        <div class="card-body">
-          <h2 class="card-title" style="color: var(--dark)">Add link</h2>
-          <form action="/d/add?template=true" method="post">
-            <div class="form-group">
-              <label>Service</label>
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Service - <span id="service-label"></span><input style="display: none" id="service-input" name="service" required>
-                </button>
-                <ul class="dropdown-menu">
-                  <div class="container">
-                    {% for link in links_types %}
-                    <div class="row">
-                      <a class="dropdown-item has-icon icon" onclick="selectLinkType('{{link[0]}}', '{{link[1].name}}', '{{link[1].help}}')"><img src="{{link[1].icon}}">{{link[1].name}}</a>
-                    </div>
-                    {% endfor %}
-                  </div>
-                </ul>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Username</label>
-              <input class="form-control" name="username" placeholder="tryon" required>
-              <p class="mt-1" style="color: var(--dark)" id="service-help"></p>
-              <p style="color: var(--dark)" class="mt-1">Your username for the platform specified.</p>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-success mb-3">Add</button>
-            </div>
-          </form>
-        </div>
-      </div>
-      <div class="card mt-3">
-        <div class="card-body">
-          <h2 class="card-title" style="color: var(--dark)">Add custom link</h2>
-          <form action="/d/add" method="post">
-
-            <div class="row g-3">
-              <div class="col-auto">
-                <label>Icon</label>
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Icon - <span id="icon-label"></span><input style="display: none" id="icon-input" name="icon" required>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <div class="container dropdown-item">
-                      {% for i in range(0, ((icons|length)/3)|int) %}
-                      <div class="row row-cols-md-3">
-                        <div class="col col-md-3">
-                          <a class="icon" onclick="selectIcon('{{icons[i * 3][0]}}', '{{icons[i * 3][1]}}')"><img src="{{icons[i * 3][0]}}"></a>
-                        </div>
-                        <div class="col col-md-3">
-                          <a class="icon" onclick="selectIcon('{{icons[i * 3 + 1][0]}}', '{{icons[i * 3 + 1][1]}}')"><img src="{{icons[i * 3 + 1][0]}}"></a>
-                        </div>
-                        <div class="col col-md-3">
-                          <a class="icon" onclick="selectIcon('{{icons[i * 3 + 2][0]}}', '{{icons[i * 3 + 2][1]}}')"><img src="{{icons[i * 3 + 2][0]}}"></a>
-                        </div>
-                      </div>
-                      {% endfor %}
-                      <div class="row row-cols-md-3">
-                        {% for i in range(0, ((icons|length)%3)) %}
-                          <div class="col col-md-3">
-                            <a class="icon" onclick="selectIcon('{{icons[-i][0]}}', '{{icons[-i][1]}}')"><img src="{{icons[-i][0]}}"></a>
-                          </div>
-                        {% endfor %}
-                      </div>
-                    </div>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-auto">
-                <label>Name</label>
-                <input type="text" class="form-control" placeholder="My link" name="name" required>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Link</label>
-              <input type="url" class="form-control" name="link" placeholder="https://my-link.com" required>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-success mb-3">Add</button>
-            </div>
-          </form>
-        </div>
-      </div>
       <br />
     </div>
     <hr />
