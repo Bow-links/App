@@ -59,6 +59,14 @@
     --background-a: #21262d;
 }
 
+.btn-link.bow {
+    --color: var(--grey);
+    --background: var(--black-alt);
+
+    --color-a: var(--white);
+    --background-a: var(--black);
+}
+
 .btn-link.gitlab {
     --color: #ececef;
     --background: #fc6d26;
