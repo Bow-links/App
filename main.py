@@ -8,7 +8,7 @@ import requests
 from flask import Flask, render_template, request, make_response, redirect
 
 
-app = Flask('Tryon - liens')
+app = Flask('Bow Links')
 config = json.loads(open('data/config.json', 'r').read())
 
 
