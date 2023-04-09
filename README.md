@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="static/favicon.png" />
+<img src="https://avatars.githubusercontent.com/u/128938231?s=200&v=4" />
 
 </div>
 
@@ -8,10 +8,16 @@
 Bow helps you to introduces you in 2 lines and group you social network links in one place.
 
 ## Screenshots
-Register page
-<img src="/.github/screenshots/Screenshot 2023-03-22 at 19-28-49 Bow Register.png">
+Dashboard
+<img src="/.github/screenshots/dashboard.png">
+<br>
+<br>
 Example user page
-<img src="/.github/screenshots/Screenshot 2023-03-22 at 19-29-26 John Doe Bow.png"/>
+<img src="/.github/screenshots/screen_profile.png"/>
+<br>
+<br>
+Register
+<img src="/.github/screenshots/screen_register.png"/>
 
 ## Self-hosting
 
