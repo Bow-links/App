@@ -15,6 +15,34 @@ Example user page
 
 ## Self-hosting
 
+### Configuration
+`data/config.json` (template at data/config.sample.json)
+```json
+{
+  "default": "/register",
+  "url": "http://my-bow.com",
+  "database": {
+    "url": "mongodb+srv://user:pass@my-mongo.com"
+  }
+}
+```
+`data/links.json` (template at data/links.sample.json)
+```json
+{
+  "templates": {
+    "github": {
+      "base_url": "https://github.com/",
+      "icon": "/static/icons/gh.svg",
+      "name": "Github"
+    },
+    [...]
+  }
+}
+```
+
+
+You're ready to start !
+
 ### Using docker
 ```shell
 git clone https://github.com/tryon-dev/Bow
