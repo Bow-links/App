@@ -17,6 +17,10 @@ def get_user(username):
     return database.users.find_one({'username': username})
 
 
+def get_user_by_email(email):
+    return database.users.find_one({'email': email})
+
+
 def is_username_used(username):
     return database.users.find_one({'username': username}) is not None
 
@@ -42,8 +46,9 @@ def add_user(username, name, email, image, description, password):
 
 def is_user_right(username, password):
     user = database.users.find_one({'username': username})
-    if user['password'] == str(hashlib.scrypt(password.encode(), salt=username.encode(), n=4, r=10, p=2)):
-        return True, user
+    if user is not None:
+        if user['password'] == str(hashlib.scrypt(password.encode(), salt=username.encode(), n=4, r=10, p=2)):
+            return True, user
     return False, {}
 
 
@@ -156,12 +161,17 @@ def login():
                 return render_template('dashboard.html', pin=pinned, links=links, user=user['name'], username=user['username'], description=user['description'], image=user['image'], links_types=link_templates, icons=icons, backgrounds=backgrounds, background=user['background'])
         return render_template('login.html')
     else:
-        username = request.form.get('username')
-        password = request.form.get('password')
-        right, user = is_user_right(username, password)
-        response = make_response(redirect('/dashboard'))
-        if right:
-            response.set_cookie('token', user['token'])
+        email = request.form.get('email')
+        user = get_user_by_email(email)
+        if user:
+            username = user['username']
+            password = request.form.get('password')
+            right, user = is_user_right(username, password)
+            response = make_response(redirect('/dashboard'))
+            if right:
+                response.set_cookie('token', user['token'])
+        else:
+            response = make_response(redirect('/login'))
         return response
 
 
