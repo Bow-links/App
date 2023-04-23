@@ -41,6 +41,16 @@ label {
     color: var(--grey) !important;
 }
 
+.btn-primary {
+    background-color: var(--purple-alt);
+    border-color: var(--purple-alt);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--purple);
+    border-color: var(--purple);
+}
+
 form .btn:not(.btn-danger, .btn-link, .btn-success, .btn-secondary) {
     width: 100%;
     display: inline-flex;
@@ -69,7 +79,7 @@ form .btn:not(.btn-danger, .btn-link, .btn-success, .btn-secondary) {
     transform: scale(0.9);
     cursor: pointer;
     display: flex;
-    background-color: var(--blue);
+    background-color: var(--purple-alt);
     justify-content: center;
     align-items: center;
     border-radius: 50%;
