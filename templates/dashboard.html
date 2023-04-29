@@ -221,13 +221,18 @@
           </div>
         </div>
       </div>
+      {% if pin != None %}
       <hr />
-      <a href="{{pin.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{pin.type}}">
-        <div class="icon">
-          <img src="{{pin.icon}}">
-        </div>
-        <span>{{pin.name}}</span>
-      </a>
+      <div class="d-flex justify-content-between">
+        <a href="{{pin.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{pin.type}}">
+          <div class="icon">
+            <img src="{{pin.icon}}">
+          </div>
+          <span>{{pin.name}}</span>
+        </a>
+        <button class="btn btn-warning" onclick="location.href = '/d/unpin'" title="Unpin"><img src="/static/icons/pin-slash.svg"></button>
+      </div>
+      {% endif %}
       <hr />
       <h2 class="mb-5">Socials</h2>
       {% for link in links %}

@@ -22,8 +22,8 @@
       </p>
       <h1>{{user}}</h1>
       <h2>{{description}}</h2>
+      {% if pin != None %}
       <hr />
-      {% if pin != {} %}
       <a href="{{pin.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{pin.type}}">
         <div class="icon">
           <img src="{{pin.icon}}">
@@ -31,27 +31,15 @@
         <span>{{pin.name}}</span>
         </a>
       {% endif %}
-      {% for link in links %}
-        {% if link.type == 'custom' %}
-          <a href="{{link.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{link.type}}">
-          <div class="icon">
-            <img src="{{link.icon}}">
-          </div>
-          <span>{{link.name}}</span>
-        </a>
-        {% endif %}
-      {% endfor %}
       <hr />
       <h2>Socials</h2>
       {% for link in links %}
-        {% if link.type != 'custom' %}
           <a href="{{link.link}}" rel="noopener noreferrer" target="_blank" class="btn-link {{link.type}}">
           <div class="icon">
             <img src="{{link.icon}}">
           </div>
           <span>{{link.name}}</span>
         </a>
-        {% endif %}
       {% endfor %}
       <br />
     </div>

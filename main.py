@@ -108,6 +108,12 @@ def pin_link(username, link):
         database.links.insert_one(old_pinned_object)
 
 
+def unpin_link(username):
+    pin = database.pins.find_one({'username': username})
+    database.links.insert_one(pin)
+    database.pins.delete_one({'username': username})
+
+
 def get_icons_links_types_and_backgrounds():
     templates = json.loads(open('data/links.json').read())['templates']
     links_types = [(link_type, templates[link_type]) for link_type in templates.keys()]
@@ -214,6 +220,14 @@ def add_pin_link():
         link = request.args.get('link')
         if link is not None:
             pin_link(user['username'], link)
+    return redirect('/dashboard')
+
+
+@app.route('/d/unpin')
+def remove_pin_link():
+    right, user = is_right_token(request.cookies.get('token'))
+    if right:
+        unpin_link(user['username'])
     return redirect('/dashboard')
 
 
