@@ -41,7 +41,7 @@ def add_user(username, name, email, image, description, password):
 
     add_link(username, 'Bow Profile', f"{config['url']}/@{username}", "/static/icons/bow.svg", 'bow')
     add_link(username, 'Bow Website', f"{config['url']}", "/static/icons/bow.svg", 'bow')
-    pin_link(username, f"https://{config['url']}/{username}")
+    pin_link(username, f"https://{config['url']}/@{username}")
 
 
 def is_user_right(username, password):
