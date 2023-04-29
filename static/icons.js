@@ -1,14 +1,11 @@
-let svg
+export default replaceImgTagsBySvg
 
-function replaceImgTagsBySvg() {
-    document.querySelectorAll('img').forEach(async el => {
+let svg
+async function replaceImgTagsBySvg() {
+    for (const el of document.querySelectorAll('img')) {
         if (el.src.includes('.svg')) {
             svg = await fetch(el.src).then(resp => resp.text())
             el.outerHTML = svg
         }
-    })
-}
-
-window.onload = () => {
-    setTimeout(replaceImgTagsBySvg, 0)
+    }
 }

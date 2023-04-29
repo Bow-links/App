@@ -9,10 +9,16 @@
   <meta property="og:title" content="{{user}} | Bow" />
   <meta property="og:description" content="{{description}}" />
   <link rel="icon" href="/static/favicon.png" />
+  <link rel="prefetch" href="/static/loader.js" />
+  <link rel="prefetch" href="/static/bow_verbose_icon.png" />
   <title>{{user}} | Bow</title>
 </head>
 <body style="background: url({{background}}); background-size: cover; background-position: 50%;">
-<div class="wrapper">
+<div class="loader">
+  <img src="/static/bow_verbose_icon.png">
+  <div class="pulse"></div>
+</div>
+<div class="wrapper disabled">
   <div class="content">
     <div id="bow-instance">
       <p align="center">
@@ -54,6 +60,6 @@
     </div>
   </div>
 </div>
-<script src="/static/icons.js"></script>
+<script type="module" src="/static/loader.js"></script>
 </body>
 </html>
